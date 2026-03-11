@@ -10,11 +10,6 @@ by citing our paper when using this code for your own research:
 Javad Abdi, Gilead Posluns, Guozheng Zhang, Boxuan Wang, Mark C. Jeffrey<br>
 ACM Symposium on Parallelism in Algorithms and Architectures (SPAA), 2024
 
-[Brief Announcement: Is the Problem-Based Benchmark Suite Fearless with Rust?](https://doi.org/10.1145/3558481.3591313)<br>
-Javad Abdi, Guowei Zhang, Mark C. Jeffrey<br>
-ACM Symposium on Parallelism in Algorithms and Architectures (SPAA), 2023
-
-
 # Build
 
 ## Install Rust (cargo, rustc, ...)
