@@ -230,7 +230,7 @@ impl Graph {
     }
 
     #[inline(always)]
-    pub fn index(&self, i: usize) -> Vertex {
+    pub fn index(&self, i: usize) -> Vertex<'_> {
         debug_assert!(i < self.n);
 
         let (of, of_next) = (

@@ -171,7 +171,7 @@ impl<'a> SimpleX<'a>
         }
     }
 
-    pub fn first_vertex(&self) -> &'a Vtx {
+    pub fn first_vertex(&self) -> &'a Vtx<'_> {
         self.t.unwrap().vtx[self.o as usize].unwrap()
     }
 

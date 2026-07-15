@@ -55,7 +55,7 @@ impl<PQElem: Ord + Copy> MultiQueue<PQElem> {
         }
     }
 
-    fn lock_a_queue(&self) -> (MutexGuard<BinaryHeap<PQElem>>, usize) {
+    fn lock_a_queue(&self) -> (MutexGuard<'_, BinaryHeap<PQElem>>, usize) {
         let mut index;
         let q = loop {
             index = thread_rng().gen_range(0..self.pq_list_size);
@@ -66,7 +66,7 @@ impl<PQElem: Ord + Copy> MultiQueue<PQElem> {
         (q, index)
     }
 
-    fn lock_a_queue_except(&self, except: usize) -> (MutexGuard<BinaryHeap<PQElem>>, usize) {
+    fn lock_a_queue_except(&self, except: usize) -> (MutexGuard<'_, BinaryHeap<PQElem>>, usize) {
         let mut index;
         let q = loop {
             index = thread_rng().gen_range(0..self.pq_list_size);

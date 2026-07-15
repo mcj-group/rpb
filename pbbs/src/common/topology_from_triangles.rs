@@ -87,7 +87,7 @@ type EdgeTable<'a> = HashTable<HashEdges<'a>>;
 pub fn topology_from_triangles(
     tris: &Triangles<Point2d<f64>>,
     extra_points: usize
-) -> (Vec<Tri>, Vec<Vtx>) {
+) -> (Vec<Tri<'_>>, Vec<Vtx<'_>>) {
     let (n, m) = (tris.num_points(), tris.num_triangles());
     let vs: Vec<_> = (0..n+extra_points).into_par_iter().map(
         |i| if i<n {Vtx::new(tris.p[i], i)} else {Vtx::default()}
