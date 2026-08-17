@@ -72,5 +72,5 @@ fn main() {
     let (r, d) = run(args.algorithm, args.rounds, &tris);
 
     if !args.ofname.is_empty() { write_triangles_to_file(&r, args.ofname); }
-    println!("{:?}", d);
+    println!("mean_seconds: {:.9}", d.as_secs_f64());
 }

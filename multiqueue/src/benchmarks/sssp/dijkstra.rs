@@ -222,7 +222,7 @@ fn main() {
     }
 
     let mean = times.iter().sum::<std::time::Duration>() / times.len() as u32;
-    println!("mean: {:.6}s", mean.as_secs_f64());
+    println!("mean_seconds: {:.9}", mean.as_secs_f64());
     if let Some(output) = args.output {
         write_distance(output, &data.shortest_distance);
     }

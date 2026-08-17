@@ -104,6 +104,6 @@ macro_rules! finalize {
             else { println!("result:  {:?} ... [Ommited]", &$r[..20]); }
         }
 
-        println!("mean:  {:?}", $d);
+        println!("mean_seconds: {:.9}", $d.as_secs_f64());
     }
 }

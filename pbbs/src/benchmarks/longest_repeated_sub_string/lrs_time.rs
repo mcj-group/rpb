@@ -77,5 +77,5 @@ fn main() {
         chars_to_file(out.as_bytes(), args.ofname).unwrap();
     } else { println!("{}", out); }
 
-    println!("{:?}", d);
+    println!("mean_seconds: {:.9}", d.as_secs_f64());
 }
