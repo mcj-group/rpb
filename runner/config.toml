@@ -1,0 +1,53 @@
+workers = 12
+rounds = 10
+
+[benchmarks.dedup]
+algorithm = "parhash"
+input = "/ceph/benchmarks/rusty-pbbs/inputs/seqInt/100M"
+
+[benchmarks.isort]
+algorithm = "parradix"
+input = "/ceph/benchmarks/rusty-pbbs/inputs/seqInt/100M"
+
+[benchmarks.sort]
+algorithm = "rayon"
+input = "/ceph/benchmarks/rusty-pbbs/inputs/seqInt/100M"
+
+[benchmarks.hist]
+algorithm = "parallel"
+input = "/ceph/benchmarks/rusty-pbbs/inputs/seqInt/expt-500M"
+buckets = 500000000
+
+[benchmarks.mis]
+algorithm = "rustinc"
+input = "/ceph/inputs/sym-ag/rmat-20M.sym.ag"
+
+[benchmarks.mm]
+algorithm = "rustinc"
+input = "/ceph/benchmarks/rusty-pbbs/inputs/graphs/rmat-50M.ea"
+
+[benchmarks.sf]
+algorithm = "incremental"
+input = "/ceph/benchmarks/rusty-pbbs/inputs/graphs/rmat-50M.ea"
+
+[benchmarks.msf]
+algorithm = "incremental"
+input = "/ceph/benchmarks/rusty-pbbs/inputs/graphs/rmat-50M.wea"
+
+[benchmarks.sa]
+algorithm = "par-range"
+input = "/ceph/benchmarks/rusty-pbbs/inputs/text/wikipedia250M.txt"
+
+[benchmarks.bw]
+algorithm = "list-rank"
+input = "/ceph/benchmarks/rusty-pbbs/inputs/text/wikipedia250M.txt"
+
+[benchmarks.lrs]
+algorithm = "doubling"
+input = "/ceph/benchmarks/rusty-pbbs/inputs/text/wikipedia250M.txt"
+
+[benchmarks.bfs]
+input = "/ceph/inputs/sym-ag/Hyperlink2012-Hosts.sym.ag"
+
+[benchmarks.sssp]
+input = "/ceph/inputs/sym-wag/USA-road-d-USA.sym.wag"

@@ -1,5 +1,6 @@
 *target/
-results/*.json
+runner/results/*.json
+runner/results/*.csv
 *.lock
 *.out
 *.err
@@ -10,3 +11,4 @@ results/*.json
 *.svg
 *.pdf
 *.pyc
+rustc-ice*
