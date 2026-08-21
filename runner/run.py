@@ -54,6 +54,12 @@ def parse_args() -> argparse.Namespace:
         help="override the worker count from config.toml",
     )
     parser.add_argument(
+        "-r",
+        "--rounds",
+        type=int,
+        help="override the round count from config.toml",
+    )
+    parser.add_argument(
         "-o",
         "--results-dir",
         type=Path,
@@ -71,7 +77,8 @@ def load_config() -> dict:
         raise RunnerError(f"could not read {CONFIG}: {error}") from error
 
     for field in ("workers", "rounds"):
-        if not isinstance(config.get(field), int) or config[field] < 1:
+        value = config.get(field)
+        if value is not None and (not isinstance(value, int) or value < 1):
             raise RunnerError(f"{field} must be a positive integer")
     if not isinstance(config.get("benchmarks"), dict) or not config["benchmarks"]:
         raise RunnerError("config.toml must contain benchmark configurations")
@@ -236,13 +243,20 @@ def main() -> int:
         config = load_config()
         benchmarks = config["benchmarks"]
         names = select_benchmarks(args.benchmark, benchmarks)
-        workers = args.workers if args.workers is not None else config["workers"]
+        workers = args.workers if args.workers is not None else config.get("workers")
+        if workers is None:
+            raise RunnerError("workers must be provided via --workers or config.toml")
         if workers < 1:
             raise RunnerError("workers must be a positive integer")
+        rounds = args.rounds if args.rounds is not None else config.get("rounds")
+        if rounds is None:
+            raise RunnerError("rounds must be provided via --rounds or config.toml")
+        if rounds < 1:
+            raise RunnerError("rounds must be a positive integer")
         input_paths = {
             name: validate_benchmark(name, benchmarks[name]) for name in names
         }
-        rows = execute(names, benchmarks, input_paths, workers, config["rounds"])
+        rows = execute(names, benchmarks, input_paths, workers, rounds)
         results_path = write_results(rows, args.results_dir)
     except (RunnerError, OSError) as error:
         print(f"error: {error}", file=sys.stderr)
