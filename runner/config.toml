@@ -1,53 +1,55 @@
-workers = 12
-rounds = 10
-
 [benchmarks.dedup]
 algorithm = "parhash"
-input = "/ceph/benchmarks/rusty-pbbs/inputs/seqInt/100M"
+input = "${REPO_ROOT}/inputs/expt-500M" 
 
 [benchmarks.isort]
 algorithm = "parradix"
-input = "/ceph/benchmarks/rusty-pbbs/inputs/seqInt/100M"
+input = "${REPO_ROOT}/inputs/expt-500M"
 
 [benchmarks.sort]
-algorithm = "rayon"
-input = "/ceph/benchmarks/rusty-pbbs/inputs/seqInt/100M"
+algorithm = "sample_sort"
+input = "${REPO_ROOT}/inputs/expt-1B"
 
 [benchmarks.hist]
 algorithm = "parallel"
-input = "/ceph/benchmarks/rusty-pbbs/inputs/seqInt/expt-500M"
+input = "${REPO_ROOT}/inputs/expt-500M"
 buckets = 500000000
 
 [benchmarks.mis]
 algorithm = "rustinc"
-input = "/ceph/inputs/sym-ag/rmat-20M.sym.ag"
+input = "${REPO_ROOT}/inputs/Hyperlink2012-Hosts.sym.ag"
+# input = "${REPO_ROOT}/inputs/USA-road-d-USA.sym.wag"
 
 [benchmarks.mm]
 algorithm = "rustinc"
-input = "/ceph/benchmarks/rusty-pbbs/inputs/graphs/rmat-50M.ea"
+input = "${REPO_ROOT}/inputs/rmat-50M.ea"
+# input = "${REPO_ROOT}/inputs/USA-road-d-USA.sym.wag"
 
 [benchmarks.sf]
 algorithm = "incremental"
-input = "/ceph/benchmarks/rusty-pbbs/inputs/graphs/rmat-50M.ea"
+input = "${REPO_ROOT}/inputs/rmat-50M.ea"
+# input = "${REPO_ROOT}/inputs/Hyperlink2012-Hosts.sym.ag"
+# input = "${REPO_ROOT}/inputs/USA-road-d-USA.sym.wag"
 
-[benchmarks.msf]
-algorithm = "incremental"
-input = "/ceph/benchmarks/rusty-pbbs/inputs/graphs/rmat-50M.wea"
+# Doesn't appear to be a 1-to-1 algorithm match between pbbs and rpb
+# [benchmarks.msf]
+# algorithm = "incremental"
+# input = "${REPO_ROOT}/inputs/rmat-20M.wea"
+# # input = "${REPO_ROOT}/inputs/USA-road-d-USA.sym.wag"
 
 [benchmarks.sa]
 algorithm = "par-range"
-input = "/ceph/benchmarks/rusty-pbbs/inputs/text/wikipedia250M.txt"
+input = "${REPO_ROOT}/inputs/wikipedia250M.txt"
 
 [benchmarks.bw]
 algorithm = "list-rank"
-input = "/ceph/benchmarks/rusty-pbbs/inputs/text/wikipedia250M.txt"
+input = "${REPO_ROOT}/inputs/wikipedia250M.txt"
 
 [benchmarks.lrs]
 algorithm = "doubling"
-input = "/ceph/benchmarks/rusty-pbbs/inputs/text/wikipedia250M.txt"
+input = "${REPO_ROOT}/inputs/wikipedia250M.txt"
 
-[benchmarks.bfs]
-input = "/ceph/inputs/sym-ag/Hyperlink2012-Hosts.sym.ag"
-
-[benchmarks.sssp]
-input = "/ceph/inputs/sym-wag/USA-road-d-USA.sym.wag"
+# Doesn't appear to be a 1-to-1 algorithm match between pbbs and rpb
+# [benchmarks.bfs]
+# input = "${REPO_ROOT}/inputs/Hyperlink2012-Hosts.sym.ag"
+# # input = "${REPO_ROOT}/inputs/USA-road-d-USA.sym.wag"

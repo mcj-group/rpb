@@ -45,7 +45,7 @@ class RunnerError(Exception):
 
 # parses the CLI args
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Build and run RPB benchmarks.")
+    parser = argparse.ArgumentParser(description="Run RPB benchmarks.")
     parser.add_argument("benchmark", help="benchmark name or 'all'")
     parser.add_argument(
         "-w",
@@ -98,7 +98,7 @@ def validate_benchmark(name: str, config: dict) -> Path:
     input_value = config.get("input")
     if not isinstance(input_value, str) or not input_value:
         raise RunnerError(f"benchmarks.{name}.input must be a nonempty string")
-    input_path = Path(input_value).expanduser()
+    input_path = Path(os.path.expandvars(input_value)).expanduser()
     if not input_path.is_file():
         raise RunnerError(f"input file not found: {input_path}")
 
@@ -116,26 +116,6 @@ def validate_benchmark(name: str, config: dict) -> Path:
 def print_command(stage: str, command: list[str], assignment: str = "") -> None:
     prefix = f"{assignment} " if assignment else ""
     print(f"[{stage}] {prefix}{shlex.join(command)}", flush=True)
-
-# builds benchmark(s), grouping binaries by their workspace package
-def build(names: list[str]) -> int:
-    groups = (
-        ([name for name in names if name not in MULTIQUEUE_BENCHMARKS], None),
-        ([name for name in names if name in MULTIQUEUE_BENCHMARKS], "multiqueue"),
-    )
-    for binaries, package in groups:
-        if not binaries:
-            continue
-        command = ["cargo", "+stage1", "build", "--release"]
-        if package is not None:
-            command.extend(["-p", package])
-        for name in binaries:
-            command.extend(["--bin", name])
-        print_command("build", command)
-        status = subprocess.run(command, cwd=ROOT, check=False).returncode
-        if status != 0:
-            return status
-    return 0
 
 # generates run cmd for a benchmark
 def command_for(
@@ -197,7 +177,7 @@ def run(command: list[str], workers: int) -> tuple[int, float | None]:
         returncode = 1
     return returncode, mean
 
-# builds and runs cmd for benchmark(s)
+# runs cmd for benchmark(s)
 def execute(
     names: list[str],
     benchmarks: dict,
@@ -205,14 +185,11 @@ def execute(
     workers: int,
     rounds: int,
 ) -> list[dict]:
-    build_status = build(names)
     rows = []
     for name in names:
         config = benchmarks[name]
-        status, mean = build_status, None
-        if build_status == 0:
-            command = command_for(name, config, input_paths[name], workers, rounds)
-            status, mean = run(command, workers)
+        command = command_for(name, config, input_paths[name], workers, rounds)
+        status, mean = run(command, workers)
         rows.append({
             "benchmark": name,
             "mean_seconds": "" if mean is None else f"{mean:.9f}",
