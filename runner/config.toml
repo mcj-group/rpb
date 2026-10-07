@@ -7,7 +7,7 @@ algorithm = "parradix"
 input = "${REPO_ROOT}/inputs/expt-500M"
 
 [benchmarks.sort]
-algorithm = "sample_sort"
+algorithm = "sample"
 input = "${REPO_ROOT}/inputs/expt-1B"
 
 [benchmarks.hist]
@@ -18,24 +18,18 @@ buckets = 500000000
 [benchmarks.mis]
 algorithm = "rustinc"
 input = "${REPO_ROOT}/inputs/Hyperlink2012-Hosts.sym.ag"
-# input = "${REPO_ROOT}/inputs/USA-road-d-USA.sym.wag"
 
 [benchmarks.mm]
 algorithm = "rustinc"
 input = "${REPO_ROOT}/inputs/rmat-50M.ea"
-# input = "${REPO_ROOT}/inputs/USA-road-d-USA.sym.wag"
 
 [benchmarks.sf]
 algorithm = "incremental"
-input = "${REPO_ROOT}/inputs/rmat-50M.ea"
-# input = "${REPO_ROOT}/inputs/Hyperlink2012-Hosts.sym.ag"
-# input = "${REPO_ROOT}/inputs/USA-road-d-USA.sym.wag"
+input = "${REPO_ROOT}/inputs/rmat-20M.ea"
 
-# Doesn't appear to be a 1-to-1 algorithm match between pbbs and rpb
-# [benchmarks.msf]
-# algorithm = "incremental"
-# input = "${REPO_ROOT}/inputs/rmat-20M.wea"
-# # input = "${REPO_ROOT}/inputs/USA-road-d-USA.sym.wag"
+[benchmarks.msf]
+algorithm = "incremental"
+input = "${REPO_ROOT}/inputs/rmat-20M.wea"
 
 [benchmarks.sa]
 algorithm = "par-range"
@@ -49,7 +43,6 @@ input = "${REPO_ROOT}/inputs/wikipedia250M.txt"
 algorithm = "doubling"
 input = "${REPO_ROOT}/inputs/wikipedia250M.txt"
 
-# Doesn't appear to be a 1-to-1 algorithm match between pbbs and rpb
-# [benchmarks.bfs]
-# input = "${REPO_ROOT}/inputs/Hyperlink2012-Hosts.sym.ag"
-# # input = "${REPO_ROOT}/inputs/USA-road-d-USA.sym.wag"
+[benchmarks.dr]
+algorithm = "incremental"
+input = "${REPO_ROOT}/inputs/dt_k2M"
